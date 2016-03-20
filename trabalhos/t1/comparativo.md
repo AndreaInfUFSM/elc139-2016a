@@ -7,6 +7,7 @@ Nome: < Maurício M. Donato >
 
 | Característica                                            | Computador no TOP500  | Meu computador  |
 | --------------------------------------------------------- | --------------------- | --------------- |
+<<<<<<< HEAD
 | Nome/Título                                               |    TITAN - CRAY XK7   |     Mac Air     |
 | Imagem (foto, diagrama, screenshot, etc.)                 | ![](https://www.olcf.ornl.gov/wp-content/gallery/titan/titan1.jpg) | ![](http://images.apple.com/br/macbook-air/images/overview_wireless_hero_enhanced.png)|
 | Classificação de Flynn                                    |          4 modos, dependendo do contexto da execução             |        MIMD       |
@@ -17,6 +18,18 @@ Nome: < Maurício M. Donato >
 | Memória total                                             |     710,144 GB        |     8,00 GB     |
 | Tipo(s) de interconexão entre os núcleos/processadores    |        Gemini         |        -        |
 | Desempenho Linpack                                        |     17,590 TFlop/s    |   ~ 62 GFlop/s  |
+=======
+| Nome/Título                                               |                       |                 |
+| Imagem (foto, diagrama, screenshot, etc.)                 | Substitua-me. <img src="http://www.top500.org/static//images/Top500_logo.png" width="48"> | |
+| Classificação de Flynn                                    |                       |                 |
+| Memória: compartilhada, distribuída ou ambas?             |                       |                 |
+| Número total de núcleos de processamento                  |                       |                 |
+| Fabricante e modelo do(s) processador(es)                 |                       |                 |
+| Frequência do(s) processador(es)                          |                       |                 |
+| Memória total                                             |                       |                 |
+| Tipo(s) de interconexão entre os núcleos/processadores    |                       |                 |
+| Desempenho Linpack                                        |                       |                 |
+>>>>>>> AndreaInfUFSM/master
 
 ### Referências
 - Oak Ridge National Laboratory. Titan Cray XK7. https://www.olcf.ornl.gov/computing-resources/titan-cray-xk7/
