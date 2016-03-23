@@ -43,3 +43,14 @@
   
   
 ## Parte 2
+
+#### 1º profiler escolhido: Apple Instruments </br>
+- (a) Conjunto de ferramentos incluso no Ambiente de Desenvolvimento Integrado (IDE) fornecido gratuitamente pela Apple, o xCode. Apresenta diversos templates para análise dos mais variados aspectos do programa, como por exemplo estimativa de uso energético da aplicação, monitoramento das atividades, tempo e execução, dentre outras coisas. Em relação a instalação, bastar fazer o download da IDE diretamente da Store, que todas ferramentas estarão inclusas. </br>
+
+Templates disponíveis </br>
+<img src="http://i.imgur.com/DINw8gW.png" width="300px" heigth="400px" />
+
+- (b) Para o teste de 'time profiler', utilizou-se a aplicação dotProduct_seq com tamanho do array setado em 300000000 com 20 repetições. O profiler demonstra a utilização de CPU durante a execução, bem como o tempo de execução de cada função e sua porcentagem de tempo em relação ao total.</br>
+<img src="http://i.imgur.com/EhzFOhN.png" width="300px" heigth="400px" /> </br>
+
+- (c) Apesar de apresentar uma interface relativamente "clear", foi necessário pesquisar o que cada informação demonstrada representa.
