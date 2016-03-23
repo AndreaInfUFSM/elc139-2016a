@@ -54,3 +54,12 @@ Templates disponíveis </br>
 <img src="http://i.imgur.com/EhzFOhN.png" width="300px" heigth="400px" /> </br>
 
 - (c) Apesar de apresentar uma interface relativamente "clear", foi necessário pesquisar o que cada informação demonstrada representa.
+
+
+#### 2º profiler escolhido: JProfiler </br>
+- (a) Jprofiler da ej-Technologies apresenta uma instalação fácil, sendo que no meu caso, baixei uma imagem DMG e segui uma espécie de instalador deles. O software funciona em forma de avaliação por 10 dias. A aplicação apresenta uma visão sobre memória, CPU, Threads e afins durante a execução. Há várias formas de "buscar" a aplicação que deseja fazer profiler. Permite também que seja configurado a forma que será feito. </br>
+
+- (b) Durante os tester, utilizou-se uma implementação do dotProduct_seq em Java, com o acrescimento de um loop, para garantir que "houvesse tempo" do JProfiler se conectar a aplicação. O tamanho do array foi setado em torno dos 7.000.000 com 20 repetições. Abaixo, uma imagem exemplificando a execução do profiler. </b> 
+<img src="http://i.imgur.com/7AM6fmg.png" width="300px" heigth="400px" /> </br>
+
+- (c) Das ferramentas testas por mim, com certeza a JProfiler foi a mais complicada de ser usada. Foi necessário passar um bom tempinho "fuçando" no programa, bem como lendo tutoriais na internet. Não achei muito intuitivo a utilização e demora até entender a quantidade de informação apresentada. 
