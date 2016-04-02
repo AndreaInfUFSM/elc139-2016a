@@ -92,55 +92,55 @@
             <TD> 2.0000 </TD>
             <TD> 1 </TD>
             <TD> 8051078 </TD>
-            TD>  </TD>
+            <TD> 0 </TD>
         </TR>
         <TR>
             <TD> 1.000.000 </TD>
             <TD> 2.000 </TD>
             <TD> 2 </TD>
             <TD> 8156359 </TD>
-            TD>  </TD>
+            <TD> 0 </TD>
         </TR>
         <TR>
             <TD> 1.000.000 </TD>
             <TD> 5.000 </TD>
             <TD> 1 </TD>
             <TD> 20990081 </TD>
-            TD>  </TD>
+            <TD> 0 </TD>
         </TR>
         <TR>
             <TD> 1.000.000 </TD>
             <TD> 5.000 </TD>
             <TD> 2 </TD>
             <TD> 20365911 </TD>
-            TD>  </TD>
+            <TD> 0 </TD>
         </TR>
         <TR>
             <TD> 1.000.000 </TD>
             <TD> 5.000 </TD>
             <TD> 4 </TD>
             <TD> 30502507 </TD>
-            TD>  </TD>
+            <TD> 0 </TD>
         </TR>
         <TR>
             <TD> 5.000.000 </TD>
             <TD> 2.000 </TD>
             <TD> 1 </TD>
             <TD> 43207630 </TD>
-            TD>  </TD>
+            <TD> 0 </TD>
         </TR>
         <TR>
             <TD> 5.000.000 </TD>
             <TD> 2.000 </TD>
             <TD> 2 </TD>
             <TD> 40603254 </TD>
-            TD>  </TD>
+            <TD> 0 </TD>
         </TR>
         <TR>
             <TD> 5.000.000 </TD>
             <TD> 2.000 </TD>
             <TD> 4 </TD>
             <TD> 61029029 </TD>
-            TD>  </TD>
+            <TD> 0 </TD>
         </TR>
 </TABLE>
