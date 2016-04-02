@@ -8,7 +8,7 @@
 ## Parte 1: PThreads
 	-- (1). 
 
-	-- (2). Durante o experimento com a configuração de 1 Thread, tamanho = 1.000.000 e repetições = 2.000, obteu-se um tempo médio* de 8738260 usec. Já para a versão paralela, rodando com a configuração de 1 Thread, tamanho = 1.000.000 e repetições = 2.000, obteu-se uma média* de 8104305 usec. Portanto, com um speedup aproximadamente igual a 1,08.
+	-- (2). Durante o experimento com a configuração de 1 Thread, tamanho = 1.000.000 e repetições = 2.000, obteu-se um tempo médio de 8738260 usec. Já para a versão paralela, rodando com a configuração de 1 Thread, tamanho = 1.000.000 e repetições = 2.000, obteu-se uma média de 8104305 usec. Portanto, com um speedup aproximadamente igual a 1,08.
 		* Média de 5 execuções para cada versão.
 
 	-- (3). 
