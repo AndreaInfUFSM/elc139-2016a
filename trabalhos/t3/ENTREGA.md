@@ -70,12 +70,77 @@
         	<TD> 4 </TD>
         	<TD> 61029029 </TD>
         </TR>
-      </TABLE>
+</TABLE>
 
       Em todos os casos, o tempo apresentado é a média aritimética de 4 execuções.
 
-- (5). A versão pthreads_dotprod2 não possui as linhas 'pthread_mutex_lock (&mutexsum);' e 'pthread_mutex_unlock (&mutexsum);'. A remoção dessas linhas gera uma condição de corrida na variável compartilhada 'dotdata.c' responsável por acumular os resultados calculados. Tal condição pode gerar inconsistência/erro no resultado final, alterando para mais ou para menos o valor final.
+- (5). A versão pthreads_dotprod2 não possui as linhas `pthread_mutex_lock (&mutexsum);` e `pthread_mutex_unlock (&mutexsum);. A remoção dessas linhas gera uma condição de corrida na variável compartilhada dotdata.c responsável por acumular os resultados calculados. Tal condição pode gerar inconsistência/erro no resultado final, alterando para mais ou para menos o valor final.
 
 ## Parte 2: OpenMP
 
-- Em desenvolvimento!
+- Comparação entre PThreads e OpenMP
+<TABLE>
+        <TR>
+          <TD>Tamanho dos Vetores</TD>
+          <TD>Repetições</TD>
+          <TD>Nº de Threads</TD>
+          <TD>Tempo de execução PThreads (usec)</TD>
+          <TD>Tempo de execução OpenMP (usec)</TD>
+        </TR>
+        <TR>
+            <TD> 1.000.000 </TD>
+            <TD> 2.0000 </TD>
+            <TD> 1 </TD>
+            <TD> 8051078 </TD>
+            TD>  </TD>
+        </TR>
+        <TR>
+            <TD> 1.000.000 </TD>
+            <TD> 2.000 </TD>
+            <TD> 2 </TD>
+            <TD> 8156359 </TD>
+            TD>  </TD>
+        </TR>
+        <TR>
+            <TD> 1.000.000 </TD>
+            <TD> 5.000 </TD>
+            <TD> 1 </TD>
+            <TD> 20990081 </TD>
+            TD>  </TD>
+        </TR>
+        <TR>
+            <TD> 1.000.000 </TD>
+            <TD> 5.000 </TD>
+            <TD> 2 </TD>
+            <TD> 20365911 </TD>
+            TD>  </TD>
+        </TR>
+        <TR>
+            <TD> 1.000.000 </TD>
+            <TD> 5.000 </TD>
+            <TD> 4 </TD>
+            <TD> 30502507 </TD>
+            TD>  </TD>
+        </TR>
+        <TR>
+            <TD> 5.000.000 </TD>
+            <TD> 2.000 </TD>
+            <TD> 1 </TD>
+            <TD> 43207630 </TD>
+            TD>  </TD>
+        </TR>
+        <TR>
+            <TD> 5.000.000 </TD>
+            <TD> 2.000 </TD>
+            <TD> 2 </TD>
+            <TD> 40603254 </TD>
+            TD>  </TD>
+        </TR>
+        <TR>
+            <TD> 5.000.000 </TD>
+            <TD> 2.000 </TD>
+            <TD> 4 </TD>
+            <TD> 61029029 </TD>
+            TD>  </TD>
+        </TR>
+</TABLE>
