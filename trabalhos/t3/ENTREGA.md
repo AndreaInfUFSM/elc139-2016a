@@ -32,7 +32,7 @@
         	<TD> 1.000.000 </TD>
         	<TD> 2.000 </TD>
         	<TD> 2 </TD>
-        	<TD> 8156359 </TD>
+        	<TD> 8037419 </TD>
         </TR>
         <TR>
         	<TD> 1.000.000 </TD>
@@ -74,11 +74,11 @@
 
       Em todos os casos, o tempo apresentado é a média aritimética de 4 execuções.
 
-- (5). A versão pthreads_dotprod2 não possui as linhas `pthread_mutex_lock (&mutexsum);` e `pthread_mutex_unlock (&mutexsum);. A remoção dessas linhas gera uma condição de corrida na variável compartilhada dotdata.c responsável por acumular os resultados calculados. Tal condição pode gerar inconsistência/erro no resultado final, alterando para mais ou para menos o valor final.
+- (5). A versão pthreads_dotprod2 não possui as linhas `pthread_mutex_lock (&mutexsum);` e `pthread_mutex_unlock (&mutexsum);`. A remoção dessas linhas gera uma condição de corrida na variável compartilhada dotdata.c responsável por acumular os resultados calculados. Tal condição pode gerar inconsistência/erro no resultado final, alterando para mais ou para menos o valor final.
 
 ## Parte 2: OpenMP
 
-- Comparação entre PThreads e OpenMP
+- Comparação entre PThreads e OpenMP: Média de 3 execuções por configuração.
 <TABLE>
         <TR>
           <TD>Tamanho dos Vetores</TD>
@@ -89,58 +89,58 @@
         </TR>
         <TR>
             <TD> 1.000.000 </TD>
-            <TD> 2.0000 </TD>
+            <TD> 2.000 </TD>
             <TD> 1 </TD>
             <TD> 8051078 </TD>
-            <TD> 0 </TD>
+            <TD> 8838086 </TD>
         </TR>
         <TR>
             <TD> 1.000.000 </TD>
             <TD> 2.000 </TD>
             <TD> 2 </TD>
-            <TD> 8156359 </TD>
-            <TD> 0 </TD>
+            <TD> 8037419</TD>
+            <TD> 4912483 </TD>
         </TR>
         <TR>
             <TD> 1.000.000 </TD>
             <TD> 5.000 </TD>
             <TD> 1 </TD>
             <TD> 20990081 </TD>
-            <TD> 0 </TD>
+            <TD> 21745580 </TD>
         </TR>
         <TR>
             <TD> 1.000.000 </TD>
             <TD> 5.000 </TD>
             <TD> 2 </TD>
             <TD> 20365911 </TD>
-            <TD> 0 </TD>
+            <TD> 12336983 </TD>
         </TR>
         <TR>
             <TD> 1.000.000 </TD>
             <TD> 5.000 </TD>
             <TD> 4 </TD>
             <TD> 30502507 </TD>
-            <TD> 0 </TD>
+            <TD> 12043718 </TD>
         </TR>
         <TR>
             <TD> 5.000.000 </TD>
             <TD> 2.000 </TD>
             <TD> 1 </TD>
             <TD> 43207630 </TD>
-            <TD> 0 </TD>
+            <TD> 54968879 </TD>
         </TR>
         <TR>
             <TD> 5.000.000 </TD>
             <TD> 2.000 </TD>
             <TD> 2 </TD>
             <TD> 40603254 </TD>
-            <TD> 0 </TD>
+            <TD> 24742737 </TD>
         </TR>
         <TR>
             <TD> 5.000.000 </TD>
             <TD> 2.000 </TD>
             <TD> 4 </TD>
             <TD> 61029029 </TD>
-            <TD> 0 </TD>
+            <TD> 23871081 </TD>
         </TR>
 </TABLE>
