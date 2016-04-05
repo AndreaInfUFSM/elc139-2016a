@@ -7,7 +7,18 @@
 
 ## Parte 1: PThreads
 
-- (1).
+- (1). O particionamento/aglomeração e mapeamento é feito através do cálculo: <br/>
+        <p>int wsize = dotdata.wsize; <br/>
+        int start = offset*wsize;<br/>
+        int end = start + wsize;<br/> </p>
+      Onde offset é o argumento passado ao inici ar a pthread_join (Thread 1 -> offset = 0; Thread 2 -> offset = 1; etc etc).<br/>
+      Desse modo, cada thread consegue cálcular o seu tamanho de array para processamento. Por exemplo, ao iniciar o programa com 2 threads e tamanho do array = N, o progamada aloca memória para 2*N posições, de tal modo que a Threa 1 fique responsável pelos elementos 0...N-1 e a Thread 2, pelos elementos de N..2*N-1<br/>
+ 
+A comunicação é feita através da variável compartilhada pelas threads. Cada thread guarda seu resultado parcial em mysum e, ao final da sua execução, adiciona seu resultado a variável dotdata.c,como ilustra o código abaixo:<br/>
+     <p>pthread_mutex_lock (&mutexsum);<br/>
+        dotdata.c += mysum;<br/>
+        pthread_mutex_unlock (&mutexsum);<br/> </p>
+
 
 - (2). Durante o experimento com a configuração de 1 Thread, tamanho = 1.000.000 e repetições = 2.000, obteu-se um tempo médio de 8738260 usec. Já para a versão paralela, rodando com a configuração de 1 Thread, tamanho = 1.000.000 e repetições = 2.000, obteu-se uma média de 8104305 usec. Portanto, com um speedup aproximadamente igual a 1.08.
   -> Média de 5 execuções para cada versão.
