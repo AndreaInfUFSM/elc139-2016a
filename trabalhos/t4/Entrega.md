@@ -50,3 +50,9 @@ Gráfico ilustrando os tempos obtidos: </br>
 
 Speedups obtidos: </br>
 <img src="http://i.imgur.com/HnnuKsl.png" /> </br>
+
+##### Eficiência:
+- Observou-se que com o aumento do número de threads, o ganho de speedup não foi proporcial, fazendo com que a eficiência seja reduzida. Durante o experimento, atingiu-se a uma eficiência de até 0.92 para o caso de execução com 2 Threads e entrada = 500. Por outro lado, mesmo obtendo-se o maior speedup (de 1.92) durante o experimento com 8 Threads e entrada = 500, obteu-se uma eficiência de apenas 0.24. O gráfico abaixo demonstra a evolução da eficiência em relação ao tamanho da entrada e do número de threads</br>
+
+Gráfico demonstrando a efiência (em %): </br>
+<img src="http://i.imgur.com/HsCQBh5.png"/> </br>
