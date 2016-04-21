@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <time.h>
 #include <sys/time.h>
+#include <omp.h>
 #include "Graph.h"
 
 /**
@@ -26,15 +27,19 @@ Floyd::calculate(Graph& s, const Graph& g)
 {
    int n;
    int w;
+   int i;
+   int j;
+   int k;
    
    s = g;
    n = s.size();
    
-   for (int k = 0; k < n; k++)
+   for (k = 0; k < n; k++)
    {
-      for (int i = 0; i < n; i++)
+      #pragma omp parallel for private(i, j, w)
+      for (i = 0; i < n; i++)
       {
-         for (int j = 0; j < n; j++)
+         for (j = 0; j < n; j++)
          {
             if ((i != j) && s.hasEdge(i,k) && s.hasEdge(k,j))
             {
@@ -56,7 +61,6 @@ long wtime(){
    gettimeofday(&t, NULL);
    return t.tv_sec*1000000 + t.tv_usec;
 }
-
 
 int main(int argc, char** argv)
 {
@@ -90,7 +94,7 @@ int main(int argc, char** argv)
       end = wtime();
 
       std::cout << og << std::endl;
-      std::cout << "Tempo de execucao sequencial: " << end - start << std::endl;
+      std::cout << "Tempo de execucao paralelo: " << end - start << std::endl;
       // Alternativamente:
       // std::cout << DotGraphEncoder(og) << std::endl;
       // ou
