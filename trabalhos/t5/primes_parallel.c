@@ -14,8 +14,8 @@ int main(int argc, char *argv[])
   double time2;
   double time3;
 
-  n = 524288;
-
+  //n = 524288;
+  n = 52428;
   printf("\n");
   printf("                                V1            V2            V3\n");
   printf("         N     Pi(N)          Time          Time          Time\n");
@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
   time1 = omp_get_wtime() - time1;
 
   time2 = omp_get_wtime();
-  primes2 = prime_v2(n);
+  primes = prime_v2(n);
   time2 = omp_get_wtime() - time2;
   
   time3 = omp_get_wtime();
@@ -48,6 +48,7 @@ int prime_v1(int n)
   int prime;
   int total = 0;
 
+  #pragma omp parallel for private(i, j, prime) shared(total)
   for (i = 2; i <= n; i++)
   {
     prime = 1;
@@ -76,12 +77,12 @@ int prime_v2(int n)
   for (i = 2; i <= n; i++)
   {
     prime = 1;
+    #pragma omp parallel for private(i, j, prime) shared(total)
     for (j = 2; j < i; j++)
     {
       if (i % j == 0)
       {
         prime = 0;
-        break;
       }
     }
     total = total + prime;
