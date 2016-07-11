@@ -13,7 +13,7 @@
   (b) Com MPI, executando em Localhost </br>
   (c) Com MPI, executando no EC2 da Amazon </br> 
 
-- Para os casos utilizando MPI o número de processos foi fixado em 3 (n = 3), utilizando 2 processos para realizar o processamento dos dados e 1 processo de pivo. Em todos os casos, o tempo executado é a média aritmética de 5 execuções.
+- Para os casos utilizando MPI o número de processos foi fixado em 3 (n = 3), utilizando 2 processos para realizar o processamento dos dados e 1 processo de pivo. Em todos os casos, o tempo executado é a média aritmética de 5 execuções. Para os resultados abaixo, desconsidera-se o tempo necessário para efetuar I/O.
 
 ##### Sequencia Vs MPI (EC2)
 - A versão distribuída, executando sobre instâncias de EC2 (cluster Amazon), não conseguiu obter ganhos de desempenho quando comparada com sua versão sequencia nos experimentos realizados. O tempo gasto durante a comunicação entre as instâncias (uma vez que a mesma é realizada sobre uma rede, "custando caro"), pode ter sido um fator determinante para não ganhar desempenho. </br>
