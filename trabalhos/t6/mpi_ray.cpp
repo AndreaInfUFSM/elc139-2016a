@@ -1,4 +1,5 @@
 #include <list>
+#include <sys/time.h>
 #include <iostream>
 #include <limits>
 #include <cmath>
@@ -101,6 +102,13 @@ Scene *create(int level, const Vec &c, double r) {
   return new Group(Sphere(c, 3*r), child);
 }
 
+long wtime(){
+  struct timeval t;
+  gettimeofday(&t, NULL);
+
+  return t.tv_sec*1000000 + t.tv_usec;
+}
+
 int main(int argc, char *argv[]) {
   int level = 6;
   int n = 512;
@@ -125,42 +133,38 @@ int main(int argc, char *argv[]) {
       int init;
       int end; 
       int k;
+      long ini = wtime();
       char *aux = (char *) malloc(t * n * sizeof(char));
       buffer = (char*) malloc(n * n * sizeof(char));
       
-      // Espera as mensagens com os dados dos outros processos
       for(int i = 1; i < np; i++){
-        MPI_Recv(aux, n * t * sizeof(char), MPI_CHAR, i, tag, MPI_COMM_WORLD, &status);
+          MPI_Recv(aux, n * t * sizeof(char), MPI_CHAR, i, tag, MPI_COMM_WORLD, &status);
 
-        // Joga os dados no lugar certo dentro do buffer   
-        source = status.MPI_SOURCE;
-        init = (source - 1) * t * n;
-        end = source * t * n;
-        k = 0;
+          source = status.MPI_SOURCE;
+          init = (source - 1) * t * n;
+          end = source * t * n;
+          k = 0;
+                  
         for(int i = init; i < end; i++){
-          buffer[i] = aux[k];
-          k++;
-        }
+            buffer[i] = aux[k];
+            k++;
+         }
       }
-
-      // Escreve no arquivo de saída os dados recebidos dos demais processos (armazenados no buffer)
+      cout << wtime() - ini << endl;
       cout << "P5\n" << n << " " << n << "\n255\n";
       for(k = np - 1; k >= 1; k--){
         init = (k - 1) * t * n;
         end = k * t * n;
         for(int i = init; i < end; i++){
-          cout << buffer[i];
+         cout << buffer[i];
         }
       }
-
   }else{
-    // Calcula a parte responsável pelo processo, armazenando num buffer auxiliar
     int t = n / (np-1);
     int init = (my_rank - 1) * t;
     int end = my_rank * t - 1;
     char *aux = (char *) malloc(n * t * sizeof(char));
 
-    // Calcula os objetos da sua respectiva parte, armazenando no buffer auxiliar
     int i = 0;
     for (int y=end; y>=init; --y){
       for (int x=0; x<n; ++x) {
@@ -175,7 +179,6 @@ int main(int argc, char *argv[]) {
         i++;
       }
     }
-    // Envia os dados para o processo pivô.
     MPI_Send(aux, n * t * sizeof(char), MPI_CHAR, 0, tag, MPI_COMM_WORLD);
   }
 

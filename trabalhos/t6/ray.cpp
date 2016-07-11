@@ -2,6 +2,8 @@
 #include <iostream>
 #include <limits>
 #include <cmath>
+#include <cstdlib>
+#include <sys/time.h>
 
 using namespace std;
 
@@ -101,12 +103,22 @@ Scene *create(int level, const Vec &c, double r) {
   return new Group(Sphere(c, 3*r), child);
 }
 
+long wtime(){
+   struct timeval t;
+   gettimeofday(&t, NULL);
+   return t.tv_sec*1000000 + t.tv_usec;
+}
+
 int main(int argc, char *argv[]) {
-  int level = 6, n = 512, ss = 4;
-  //if (argc == 2) level = atoi(argv[1]);
+  int level = 5, n = 512, ss = 4;
+  long ini;
+  int p = 0;
+  char *buffer = (char*) malloc(n * n * sizeof(char));
+  if (argc == 2) level = atoi(argv[1]);
   Vec light = unitise(Vec(-1, -3, 2));
   Scene *s(create(level, Vec(0, -1, 0), 1));
-  cout << "P5\n" << n << " " << n << "\n255\n";
+  
+  ini = wtime();
   for (int y=n-1; y>=0; --y)
     for (int x=0; x<n; ++x) {
       double g=0;
@@ -115,8 +127,18 @@ int main(int argc, char *argv[]) {
           Vec dir(unitise(Vec(x+dx*1./ss-n/2., y+dy*1./ss-n/2., n)));
           g += ray_trace(light, Ray(Vec(0, 0, -4), dir), *s);
         }
-      cout << char(int(.5 + 255. * g / (ss*ss)));
+      buffer[p] = char(int(.5 + 255. * g / (ss*ss)));
+      p++;
     }
+
+  cout << wtime() - ini << endl;
+  
+  cout << "P5\n" << n << " " << n << "\n255\n";
+  for(int i = 0; i < n*n; i++){
+    cout << buffer[i];
+  }
+  cout << wtime() - ini << endl;
+
   delete s;
   return 0;
 }
