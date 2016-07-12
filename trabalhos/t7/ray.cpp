@@ -133,10 +133,10 @@ int main(int argc, char *argv[]) {
 
   cout << wtime() - ini << endl;
   
-  //cout << "P5\n" << n << " " << n << "\n255\n";
-  //for(int i = 0; i < n*n; i++){
-    //cout << buffer[i];
-  //}
+  cout << "P5\n" << n << " " << n << "\n255\n";
+  for(int i = 0; i < n*n; i++){
+    cout << buffer[i];
+  }
   //cout << wtime() - ini << endl;
 
   delete s;
