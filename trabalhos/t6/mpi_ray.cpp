@@ -1,9 +1,10 @@
 #include <list>
+#include <sys/time.h>
 #include <iostream>
 #include <limits>
 #include <cmath>
 #include <cstdlib>
-#include <sys/time.h>
+#include "mpi.h"
 
 using namespace std;
 
@@ -14,10 +15,9 @@ struct Vec {
   double x, y, z;
   Vec(double x2, double y2, double z2) : x(x2), y(y2), z(z2) {}
 };
-Vec operator+(const Vec &a, const Vec &b)
-{ return Vec(a.x+b.x, a.y+b.y, a.z+b.z); }
-Vec operator-(const Vec &a, const Vec &b)
-{ return Vec(a.x-b.x, a.y-b.y, a.z-b.z); }
+
+Vec operator+(const Vec &a, const Vec &b){ return Vec(a.x+b.x, a.y+b.y, a.z+b.z); }
+Vec operator-(const Vec &a, const Vec &b){ return Vec(a.x-b.x, a.y-b.y, a.z-b.z); }
 Vec operator*(double a, const Vec &b) { return Vec(a*b.x, a*b.y, a*b.z); }
 double dot(const Vec &a, const Vec &b) { return a.x*b.x + a.y*b.y + a.z*b.z; }
 Vec unitise(const Vec &a) { return (1 / sqrt(dot(a, a))) * a; }
@@ -79,8 +79,7 @@ struct Group : public Scene {
   }
 };
 
-Hit intersect(const Ray &ray, const Scene &s)
-{ return s.intersect(Hit(infinity, Vec(0, 0, 0)), ray); }
+Hit intersect(const Ray &ray, const Scene &s) { return s.intersect(Hit(infinity, Vec(0, 0, 0)), ray); }
 
 double ray_trace(const Vec &light, const Ray &ray, const Scene &s) {
   Hit hit = intersect(ray, s);
@@ -104,41 +103,87 @@ Scene *create(int level, const Vec &c, double r) {
 }
 
 long wtime(){
-   struct timeval t;
-   gettimeofday(&t, NULL);
-   return t.tv_sec*1000000 + t.tv_usec;
+  struct timeval t;
+  gettimeofday(&t, NULL);
+
+  return t.tv_sec*1000000 + t.tv_usec;
 }
 
 int main(int argc, char *argv[]) {
-  int level = 5, n = 512, ss = 4;
-  long ini;
-  int p = 0;
-  char *buffer = (char*) malloc(n * n * sizeof(char));
+  int level = 6;
+  int n = 512;
+  int ss = 4;
+  int my_rank;
+  int np;
+  int tag = 0;
+  char *buffer = NULL;
+  MPI_Status status;
+
+  MPI_Init(&argc, &argv);
+  MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
+  MPI_Comm_size(MPI_COMM_WORLD, &np);
+
   if (argc == 2) level = atoi(argv[1]);
   Vec light = unitise(Vec(-1, -3, 2));
   Scene *s(create(level, Vec(0, -1, 0), 1));
   
-  ini = wtime();
-  for (int y=n-1; y>=0; --y)
-    for (int x=0; x<n; ++x) {
-      double g=0;
-      for (int dx=0; dx<ss; ++dx)
-        for (int dy=0; dy<ss; ++dy) {
-          Vec dir(unitise(Vec(x+dx*1./ss-n/2., y+dy*1./ss-n/2., n)));
-          g += ray_trace(light, Ray(Vec(0, 0, -4), dir), *s);
+  if(my_rank == 0){
+      int t = n / (np-1);
+      int source;
+      int init;
+      int end; 
+      int k;
+      long ini = wtime();
+      char *aux = (char *) malloc(t * n * sizeof(char));
+      buffer = (char*) malloc(n * n * sizeof(char));
+      
+      for(int i = 1; i < np; i++){
+          MPI_Recv(aux, n * t * sizeof(char), MPI_CHAR, i, tag, MPI_COMM_WORLD, &status);
+
+          source = status.MPI_SOURCE;
+          init = (source - 1) * t * n;
+          end = source * t * n;
+          k = 0;
+                  
+        for(int i = init; i < end; i++){
+            buffer[i] = aux[k];
+            k++;
+         }
+      }
+      cout << wtime() - ini << endl;
+      cout << "P5\n" << n << " " << n << "\n255\n";
+      for(k = np - 1; k >= 1; k--){
+        init = (k - 1) * t * n;
+        end = k * t * n;
+        for(int i = init; i < end; i++){
+         cout << buffer[i];
         }
-      buffer[p] = char(int(.5 + 255. * g / (ss*ss)));
-      p++;
+      }
+  }else{
+    int t = n / (np-1);
+    int init = (my_rank - 1) * t;
+    int end = my_rank * t - 1;
+    char *aux = (char *) malloc(n * t * sizeof(char));
+
+    int i = 0;
+    for (int y=end; y>=init; --y){
+      for (int x=0; x<n; ++x) {
+        double g=0;
+        for (int dx=0; dx<ss; ++dx){
+          for (int dy=0; dy<ss; ++dy) {
+            Vec dir(unitise(Vec(x+dx*1./ss-n/2., y+dy*1./ss-n/2., n)));
+            g += ray_trace(light, Ray(Vec(0, 0, -4), dir), *s);
+          }
+        }
+        aux[i] = char(int(.5 + 255. * g / (ss*ss)));
+        i++;
+      }
     }
-
-  cout << wtime() - ini << endl;
-  
-  cout << "P5\n" << n << " " << n << "\n255\n";
-  for(int i = 0; i < n*n; i++){
-    cout << buffer[i];
+    MPI_Send(aux, n * t * sizeof(char), MPI_CHAR, 0, tag, MPI_COMM_WORLD);
   }
-  cout << wtime() - ini << endl;
 
+  
   delete s;
+  MPI_Finalize();
   return 0;
 }
